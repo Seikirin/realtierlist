@@ -1,0 +1,153 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: black;
+}
+
+main {
+    width: 100%;  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.items {
+    width: 100%;
+    max-width: 1120px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.item {
+    width: 80px;
+    height: 80px;
+}
+
+.item > img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.tierlist {
+    width: 100%;
+    max-width: 1120px;
+    margin-bottom: 10px;
+}
+
+.tier {
+    width: 100%;
+    min-height: 80px;
+    background-color: #333;
+    border-color: black;
+    display: flex;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.tiername {
+   
+    border-color: black;
+    text-align: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid black;
+}
+
+.tiercontent {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex: 1;
+}
+
+.label-holder {
+    width: 79px;
+    max-width: 79px;
+    min-width: 79px;
+    min-height: 80px;
+    border-right: solid 1px #000;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.label {
+    color: #333;
+    overflow: hidden;
+    text-align: center;
+    margin: 5px;
+}
+
+.art {
+    position: absolute;
+    height: 90vh;
+    left: 0;
+}
+
+.art > img {
+    height: 90vh;
+    width: 100%;
+    object-fit: contain;
+}
+
+img[src=""] {
+    opacity: 0;
+}
+
+div[inactive="true"] {
+    opacity: 0.5;
+}
+
+
+.tiercontrols {
+    width: 100px;
+    max-width: 100px;
+    background-color: rgb(0, 0, 0);
+    box-sizing: border-box;
+    position: relative
+}
+
+.tiercontrols > .top, .tiercontrols > .bottom {
+    height: 50%;
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+
+.tiercontrols > .top > img, .tiercontrols > .bottom > img, .tiercontrols > img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    position: relative;
+    filter: invert(100%);
+}
+
+.tiercontrols > .top > img:nth-child(3) {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    height: 10px;
+    transform: rotate(45deg);
+}
+
+.tiercontrols > .bottom > img:nth-child(1) {
+    transform: rotate(180deg);
+}
+
+img {
+    user-select: none;
+}
