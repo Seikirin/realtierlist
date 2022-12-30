@@ -12,7 +12,7 @@ async function fetchcdata(file) {
 }
 
 DataPromises.push(new Promise(async function (resolve, reject) {
-	cdata = await fetchcdata(`/data/bluearchive.json`); resolve()
+	cdata = await fetchcdata(`data/bluearchive.json`); resolve()
 }))
 
 await Promise.all(DataPromises)
