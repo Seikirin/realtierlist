@@ -129,13 +129,13 @@ function CreateTiers() {
 				`
             <div class="tiercontrols">
                 <div class="top">
-                    <img id = "move" draggable=false src="https://cdn-icons-png.flaticon.com/512/60/60564.png">
-                    <img id = "add" draggable=false src="https://www.freepnglogos.com/uploads/plus-icon/plus-icon-plus-svg-png-icon-download-1.png">
-                    <img id = "remove" draggable=false src="https://www.freepnglogos.com/uploads/plus-icon/plus-icon-plus-svg-png-icon-download-1.png">
+                    <img id = "move" draggable=false src="imgs/arrow.png">
+                    <img id = "add" draggable=false src="imgs/plus.png">
+                    <img id = "remove" draggable=false src="imgs/plus.png">
                 </div>
                 <div class="bottom">
-                    <img id = "move" draggable=false src="https://cdn-icons-png.flaticon.com/512/60/60564.png">
-                    <img id = "add" draggable=false src="https://www.freepnglogos.com/uploads/plus-icon/plus-icon-plus-svg-png-icon-download-1.png">
+                    <img id = "move" draggable=false src="imgs/arrow.png">
+                    <img id = "add" draggable=false src="imgs/plus.png">
                 </div>
             </div>
             `
