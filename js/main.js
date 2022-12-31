@@ -98,10 +98,7 @@ cdata.forEach((char, i) => {
 	const div = document.createElement('div');
 	div.className = 'item';
 	div.setAttribute("index", i);
-	const img = document.createElement('img');
-	img.src = char.Icon;
-	img.draggable = false;
-	div.appendChild(img)
+	div.appendChild(CreateImage(char.Icon))
 	itemsElms.push(div);
 	items.appendChild(div);
 })
