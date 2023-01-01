@@ -74,6 +74,7 @@ let DataSets = {
 	azurlane: "Azur Lane",
 	bluearchive: "Blue Archive",
 	arknights: "Arknights",
+	fgo: "Fate/Grand Order",
 	custom: "Custom",
 }
 
