@@ -1,4 +1,6 @@
 *{
+    --shadow1: rgba(255, 255, 255, 0.25);
+
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
@@ -38,6 +40,8 @@ body {
 }
 
 main {
+    width: 100%;
+    max-width: 1120px;
     display: flex;
     flex-direction: column;
 }
@@ -48,7 +52,6 @@ main2 {
 
 .items {
     width: 100%;
-    max-width: 1120px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -70,6 +73,73 @@ main2 {
     max-width: 1120px;
     margin-bottom: 10px;
 }
+
+.createmenucontainer {
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+    padding: 50px;
+}
+
+.createmenu {
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: var(--shadow1) 0px 0px 15px;
+    color: white;
+    max-width: 100%;
+    gap: 5px;
+}
+
+.button {
+    transition: filter 0.25s;
+    cursor: pointer;
+}
+
+.button[inactive="false"]:hover {
+    filter: brightness(75%);
+}
+
+
+.button:hover {
+    filter: brightness(50%);
+}
+
+
+.createbutton {
+    background-color: #333;
+    border-radius: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75em;
+    color: white;
+    border: 1px solid #767676;
+}
+
+.generatebutton {
+    margin-top: 5px;
+    width: 25%;
+}
+
+.createcontrols {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%
+}
+
 
 .tier {
     width: 100%;
@@ -111,16 +181,24 @@ main2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 5;
 }
 
 #DataList {
     background-color: #333;
     border-radius: 5px;
-    padding-left: 5px;
-    max-width: 25%;
-    margin: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    min-width: 250px;
     color: white;
+}
+
+.topcontrols {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 5px;
+    margin: 5px;
+    gap: 5px;
 }
 
 .label {
@@ -157,6 +235,10 @@ img[loaded="true"]
      opacity: 1;
 }
 
+.disabled {
+    display: none;
+}
+
 img[src=""] {
     opacity: 0;
 }
@@ -180,7 +262,7 @@ div[inactive="true"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px
+    gap: 10px;
 }
 
 .tiercontrols > .top > img, .tiercontrols > .bottom > img, .tiercontrols > img {
@@ -188,8 +270,8 @@ div[inactive="true"] {
     height: 20px;
     object-fit: contain;
     position: relative;
-    filter: invert(100%);
 }
+
 
 .tiercontrols > .top > img:nth-child(3) {
     position: absolute;

@@ -1,31 +1,4 @@
-let DataPromises = []
-const paramsArray = [];
-var cdata;
-
-async function fetchcdata(file) {
-	try {
-		const response = await fetch(file);
-		const exam = await response.json();
-		return exam;
-	} catch (error) {
-		console.error(error);
-	}
-}
-
-DataPromises.push(new Promise(async function (resolve, reject) {
-	let str = localStorage.data ?? "azurlane"
-
-	cdata = await fetchcdata(`data/` + str + ".json"); resolve()
-}))
-
-await Promise.all(DataPromises)
-
-let items = document.querySelector(".items")
-let art = document.querySelector(".art")
 let tierlist = document.querySelector(".tierlist")
-let select = document.querySelector("#DataList")
-let selected = undefined;
-let itemsElms = [];
 let Tiers = [
 	{
 		Title: "SSS",
@@ -53,11 +26,55 @@ let Tiers = [
 		Content: [],
 	},
 ];
+CreateTiers()
+
+const currentURL = new URL(window.location.href);
+const searchParams = currentURL.searchParams;
+const searchParamsObj = {};
+for (const [key, value] of searchParams) {
+  searchParamsObj[key] = value;
+}
+let DataPromises = []
+var cdata = [];
+
+async function fetchcdata(file) {
+	try {
+		const response = await fetch(file);
+		const exam = await response.json();
+		return exam;
+	} catch (error) {
+		console.error(error);
+	}
+}
+
+DataPromises.push(new Promise(async function (resolve, reject) {
+	let str = localStorage.data ?? "azurlane"
+
+	console.log(searchParamsObj.source)
+	if (!searchParamsObj.source && localStorage.data != "custom")
+		cdata = await fetchcdata(`data/` + str + `.json`); 
+	else if (searchParamsObj.source)
+		cdata = await fetchcdata(decodeURIComponent(searchParamsObj.source));
+	if (!cdata)
+		cdata = [];
+	console.log(cdata.length)
+	resolve()
+}))
+
+await Promise.all(DataPromises)
+
+let items = document.querySelector(".items")
+let art = document.querySelector(".art")
+let select = document.querySelector("#DataList")
+let selected = undefined;
+let urlinput = document.querySelector(".urlinput");
+let itemsElms = [];
 
 let DataSets = {
 	azurlane: "Azur Lane",
 	bluearchive: "Blue Archive",
-	arknights: "Arknights"
+	arknights: "Arknights",
+	custom: "Custom",
 }
 
 Object.keys(DataSets).forEach((key, i) => {
@@ -65,12 +82,15 @@ Object.keys(DataSets).forEach((key, i) => {
 	option.value = key;
 	option.textContent = DataSets[key];
 	select.appendChild(option);
-	if (localStorage.data == key)
+	if (searchParamsObj.source && key == 'custom')
+		select.selectedIndex = i;
+	else if (localStorage.data == key)
 		select.selectedIndex = i;
 })
 select.addEventListener('change', (e) => {
 	console.log(e.target.selectedIndex)
 	localStorage.data = e.target.options[e.target.selectedIndex].value
+	clearUrl();
 	location.reload();
 })
 
@@ -96,7 +116,7 @@ UpdateRemaining();
 
 cdata.forEach((char, i) => {
 	const div = document.createElement('div');
-	div.className = 'item';
+	div.className = 'item button';
 	div.setAttribute("index", i);
 	div.appendChild(CreateImage(char.Icon))
 	itemsElms.push(div);
@@ -129,13 +149,13 @@ function CreateTiers() {
 				`
             <div class="tiercontrols">
                 <div class="top">
-                    <img id = "move" draggable=false src="imgs/arrow.png">
-                    <img id = "add" draggable=false src="imgs/plus.png">
-                    <img id = "remove" draggable=false src="imgs/plus.png">
+                    <img class ="button" id = "move" draggable=false src="imgs/arrow.png">
+                    <img class ="button" id = "add" draggable=false src="imgs/plus.png">
+                    <img class ="button" id = "remove" draggable=false src="imgs/plus.png">
                 </div>
                 <div class="bottom">
-                    <img id = "move" draggable=false src="imgs/arrow.png">
-                    <img id = "add" draggable=false src="imgs/plus.png">
+                    <img class ="button" id = "move" draggable=false src="imgs/arrow.png">
+                    <img class ="button" id = "add" draggable=false src="imgs/plus.png">
                 </div>
             </div>
             `
@@ -147,7 +167,6 @@ function CreateTiers() {
 	})
 }
 
-CreateTiers()
 
 function ApplyOnload(elem) {
 	elem.setAttribute("loaded", "false")
@@ -174,6 +193,9 @@ function CancelSelection() {
 	})
 	selected = undefined
 	art.innerHTML = "";
+	Tiers.forEach(tier => {
+		tier.elm.classList.remove("button")
+	})
 }
 
 function IsAnItem(check) {
@@ -277,7 +299,9 @@ function ChangeSelection(event) {
 			art.appendChild(CreateImage(img))
 		})
 	}
-}
+	Tiers.forEach(tier => {
+		tier.elm.classList.add("button")
+	})}
 
 function AppendItem(event) {
 	if (tierlist.contains(event.target))
@@ -293,9 +317,31 @@ function AppendItem(event) {
 		items.appendChild(selected.parentElement)
 }
 
-addEventListener('click', (event) => {
+function CreateUrl()
+{
+	searchParams.set('source', encodeURIComponent(urlinput.value));
+	currentURL.search = searchParams;
+
+	window.history.pushState({}, '', currentURL);
+	window.location.reload();
+}
+
+function clearUrl()
+{
+	searchParams.delete('source');
+
+	window.history.pushState({}, '', currentURL);
+}
+
+addEventListener('click', (event) => { 
 	if (!event.target || !event.target.parentElement)
 		return;
+	if (event.target.getAttribute("action") == "createurl")
+		return CreateUrl()
+	else if (event.target.getAttribute("action") == "opencreate")
+		document.querySelector(".createmenucontainer").classList.remove("disabled")
+	else if (event.target.getAttribute("action") == "closecreate")
+		document.querySelector(".createmenucontainer").classList.add("disabled")
 	if (event.target.parentElement.className &&
 		(event.target.parentElement.className == "top"
 			|| event.target.parentElement.className == "bottom")) {
