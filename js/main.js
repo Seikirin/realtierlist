@@ -75,6 +75,7 @@ let DataSets = {
 	bluearchive: "Blue Archive",
 	arknights: "Arknights",
 	fgo: "Fate/Grand Order",
+	lostfrag: "Lost Frag",
 	custom: "Custom",
 }
 
