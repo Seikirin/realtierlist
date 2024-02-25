@@ -76,6 +76,7 @@ let DataSets = {
 	arknights: "Arknights",
 	fgo: "Fate/Grand Order",
 	lostfrag: "Lost Frag",
+	gbf: "Granblue Fantasy",
 	custom: "Custom",
 }
 
